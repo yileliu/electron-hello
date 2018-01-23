@@ -18,7 +18,8 @@
   "homepage": "https://github.com/yileliu/electron-hello#readme",
   "devDependencies": {
     "electron-debug": "^1.4.0",
-    "electron-prebuilt": "^1.4.13"
+    "electron-prebuilt": "^1.4.13",
+    "electron-rebuild": "^1.7.3"
   },
   "dependencies": {
     "electron": "^1.7.11"
