@@ -9,9 +9,12 @@
     <h1>Hello World!</h1>
     We are using io.js
     <script>document.write(process.version)</script> and Electron
-    <script>document.write(process.versions['electron'])</script>.
-    Chromium version
+    <script>document.write(process.versions['electron'])</script>. Chromium version
     <script>document.write(process.versions['chrome'])</script>.
+    <div id="holder">
+        Drag your file here
+    </div>
+    <webview src="https://www.github.com/" style="width:100%; height:calc(100vh - 150px);"></webview>
     <script>
         var electron = require('electron');
         var ipcRenderer = electron.ipcRenderer;
@@ -23,7 +26,54 @@
         window.addEventListener('offline', updateOnlineStatus);
 
         updateOnlineStatus();
+
+        var holder = document.getElementById('holder');
+        holder.ondragover = function () {
+            return false;
+        };
+        holder.ondragleave = holder.ondragend = function () {
+            return false;
+        };
+        holder.ondrop = function (e) {
+            e.preventDefault();
+            var file = e.dataTransfer.files[0];
+            console.log('File you dragged here is', file.path);
+            return false;
+        };
+
+
+        onload = function () {
+            var webview = document.getElementById("holder");
+            var indicator = document.querySelector(".indicator");
+
+            var loadstart = function () {
+                indicator.innerText = "loading...";
+            }
+            var loadstop = function () {
+                indicator.innerText = "";
+            }
+            webview.addEventListener("did-start-loading", loadstart);
+            webview.addEventListener("did-stop-loading", loadstop);
+        }
+
+        onload();
     </script>
+    <script>
+        const remote = require('electron').remote;
+        const Menu = remote.Menu;
+        const MenuItem = remote.MenuItem;
+
+        var menu = new Menu();
+        menu.append(new MenuItem({ label: 'New', click: function () { console.log('item 1 clicked'); } }));
+        menu.append(new MenuItem({ type: 'separator' }));
+        menu.append(new MenuItem({ label: 'Save', type: 'checkbox', checked: true }));
+
+        window.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+            menu.popup(remote.getCurrentWindow());
+        }, false);
+    </script>
+
 </body>
 
 </html>
