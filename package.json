@@ -1,0 +1,26 @@
+{
+  "name": "electron-hello",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yileliu/electron-hello.git"
+  },
+  "author": "neal_liu@outlook.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yileliu/electron-hello/issues"
+  },
+  "homepage": "https://github.com/yileliu/electron-hello#readme",
+  "devDependencies": {
+    "electron-debug": "^1.4.0",
+    "electron-prebuilt": "^1.4.13"
+  },
+  "dependencies": {
+    "electron": "^1.7.11"
+  }
+}
