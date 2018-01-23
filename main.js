@@ -1,7 +1,7 @@
 
 const electron = require('electron');
 // Module to control application life.
-const { app, BrowserWindow, Menu } = electron;
+const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 if (process.platform == 'darwin') {
     const dockMenu = Menu.buildFromTemplate([
@@ -20,14 +20,14 @@ if (process.platform == 'darwin') {
     app.setUserTasks([]);
     app.setUserTasks([
         {
-          program: process.execPath,
-          arguments: '--new-window',
-          iconPath: process.execPath,
-          iconIndex: 0,
-          title: 'New Window',
-          description: 'Create a new window'
+            program: process.execPath,
+            arguments: '--new-window',
+            iconPath: process.execPath,
+            iconIndex: 0,
+            title: 'New Window',
+            description: 'Create a new window'
         }
-      ]);
+    ]);
 }
 var mainWindow = null;
 
@@ -43,10 +43,10 @@ app.on('ready', function () {
     mainWindow.loadURL(`file://${__dirname}/index.html`);
     mainWindow.openDevTools();
 
-    if(process.platform == 'win32'){
+    if (process.platform == 'win32') {
         let progress = 0;
-        let interval = setInterval(()=>{
-            if(progress>=1){
+        let interval = setInterval(() => {
+            if (progress >= 1) {
                 clearInterval(interval);
                 mainWindow.setProgressBar(-1);
             }
@@ -58,4 +58,9 @@ app.on('ready', function () {
     mainWindow.on('closed', function () {
         mainWindow = null;
     });
+});
+
+
+ipcMain.on('online-status-changed', function (event, status) {
+    console.log(status);
 });
