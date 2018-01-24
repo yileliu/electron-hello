@@ -59,9 +59,9 @@
         onload();
     </script>
     <script>
-        const remote = require('electron').remote;
-        const Menu = remote.Menu;
-        const MenuItem = remote.MenuItem;
+        var remote = electron.remote;
+        var Menu = remote.Menu;
+        var MenuItem = remote.MenuItem;
 
         var menu = new Menu();
         menu.append(new MenuItem({ label: 'New', click: function () { console.log('item 1 clicked'); } }));

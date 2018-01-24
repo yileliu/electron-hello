@@ -1,7 +1,7 @@
 
 const electron = require('electron');
 // Module to control application life.
-const { app, BrowserWindow, Menu, ipcMain } = electron;
+const { app, BrowserWindow, Menu, ipcMain, Tray } = electron;
 
 if (process.platform == 'darwin') {
     const dockMenu = Menu.buildFromTemplate([
@@ -58,6 +58,25 @@ app.on('ready', function () {
     mainWindow.on('closed', function () {
         mainWindow = null;
     });
+
+    const ses = mainWindow.webContents.session;
+    console.log(`URL: ${mainWindow.webContents.getURL()}`);
+    console.log(`UserAgent: ${mainWindow.webContents.getUserAgent()}`);
+    ses.cookies.get({}, function (error, cookies) {
+        console.log(cookies);
+    });
+
+
+    appIcon = new Tray('./social_network.ico');
+    var contextMenu = Menu.buildFromTemplate([
+      { label: 'Item1', type: 'radio' },
+      { label: 'Item2', type: 'radio' },
+      { label: 'Item3', type: 'radio', checked: true },
+      { label: 'Item4', type: 'radio' }
+    ]);
+    appIcon.setToolTip('This is my application.');
+    appIcon.setContextMenu(contextMenu);
+
 });
 
 
